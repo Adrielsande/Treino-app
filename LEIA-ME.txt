@@ -1,0 +1,17 @@
+# Meu Treino — 30 Dias (PWA)
+
+Aplicativo web instalável, em português, com plano semanal, checklist diário, progresso local e cronômetro.
+
+## Como instalar no Android
+1. Publique o conteúdo desta pasta em um endereço HTTPS (por exemplo, GitHub Pages ou outro serviço de hospedagem estática).
+2. Abra o endereço no Google Chrome do celular.
+3. Abra o menu ⋮ e escolha **Instalar app** ou **Adicionar à tela inicial**.
+4. Depois da primeira abertura, os arquivos ficam em cache e o app pode funcionar offline.
+
+> Importante: por segurança, a instalação PWA exige HTTPS (ou localhost). Abrir o `index.html` diretamente do ZIP permite testar a interface, mas não instala como aplicativo e não ativa o modo offline.
+
+## Dados e limitações
+- O progresso é salvo localmente no navegador/aparelho (localStorage).
+- O cronômetro funciona enquanto a página está aberta.
+- Não há alarme garantido às 06h quando o app está fechado; notificações agendadas não são suportadas de forma confiável em todos os navegadores Android.
+- Este é um guia geral, não uma prescrição individual. Adapte os movimentos e interrompa em caso de dor aguda.

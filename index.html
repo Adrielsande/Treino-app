@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101b16">
+<meta name="description" content="Seu plano de treinos de 30 dias, sem equipamentos.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<title>Meu Treino — 30 Dias</title>
+<style>
+:root{--bg:#0d1511;--panel:#17231c;--panel2:#1d2d24;--green:#39c879;--mint:#a6f0c2;--text:#f2f7f3;--muted:#a9b9ae;--line:#2b3d32;--orange:#f3bd68}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#14231a,var(--bg) 320px);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+header{padding:26px 18px 18px;max-width:760px;margin:auto}header .eyebrow{color:var(--mint);font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}h1{font-size:30px;line-height:1.1;margin:8px 0}header p{color:var(--muted);margin:8px 0 0}
+main{max-width:760px;margin:auto;padding:0 14px 40px}.tabs{display:flex;gap:8px;overflow:auto;padding:4px 0 14px}.tabs button{white-space:nowrap;border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:999px;padding:9px 14px;font-weight:700}.tabs button.active{background:var(--green);color:#092014;border-color:var(--green)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:17px;margin:0 0 13px;box-shadow:0 10px 30px #0002}.row{display:flex;justify-content:space-between;align-items:center;gap:12px}.muted{color:var(--muted)}.small{font-size:13px}.pill{font-size:12px;background:#234431;color:var(--mint);padding:5px 9px;border-radius:99px;font-weight:800}
+h2{font-size:21px;margin:0 0 8px}h3{font-size:16px;margin:0}.exercise{padding:13px 0;border-top:1px solid var(--line)}.exercise:first-of-type{border-top:0}.exercise p{margin:4px 0;color:var(--muted);font-size:13px}.qty{font-weight:800;color:var(--mint);white-space:nowrap}
+button{font:inherit;cursor:pointer}.primary{border:0;background:var(--green);color:#082014;border-radius:12px;padding:12px 16px;font-weight:850}.secondary{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:12px;padding:10px 13px;font-weight:700}.full{width:100%}
+.progress{height:9px;background:#293a30;border-radius:99px;overflow:hidden;margin:9px 0}.progress span{display:block;height:100%;background:var(--green);width:0}
+.daygrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:12px}.day{border:1px solid var(--line);border-radius:10px;text-align:center;padding:9px 2px;background:var(--panel2);font-size:12px;color:var(--muted)}.day.done{background:#1d5636;color:#d9ffe6;border-color:#328b54}.day b{display:block;font-size:15px}
+.timer{font-size:44px;font-weight:900;text-align:center;font-variant-numeric:tabular-nums;margin:12px 0;color:var(--mint)}
+input[type=number]{width:72px;padding:9px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:var(--text)}
+.check{display:flex;gap:10px;align-items:flex-start}.check input{accent-color:var(--green);width:19px;height:19px;margin-top:3px}
+.notice{border-left:3px solid var(--orange);padding:9px 12px;background:#30291c;border-radius:8px;color:#f5d9a9;font-size:13px}
+section[hidden]{display:none}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:15px}
+</style>
+</head>
+<body>
+<header>
+ <div class="eyebrow">Seu compromisso começa às 06h</div>
+ <h1>Meu Treino <span style="color:var(--green)">30 Dias</span></h1>
+ <p>Força e massa muscular usando o peso do próprio corpo.</p>
+</header>
+<main>
+ <nav class="tabs" aria-label="Navegação">
+  <button class="active" data-tab="hoje">Treino</button><button data-tab="semana">Semana</button><button data-tab="progresso">Progresso</button><button data-tab="timer">Cronômetro</button>
+ </nav>
+ <section id="hoje">
+  <div class="card">
+   <div class="row"><div><div class="muted small">PLANO DE 30 DIAS</div><h2 id="todayTitle">Treino de hoje</h2></div><span class="pill" id="todayTag">06:00</span></div>
+   <p class="muted small" id="todayDesc">Selecione seu dia e acompanhe os exercícios.</p>
+   <div class="progress"><span id="todayBar"></span></div>
+   <div class="row small muted"><span id="todayCount">0 de 0 exercícios</span><span id="todayPct">0%</span></div>
+  </div>
+  <div class="card" id="exerciseCard"></div>
+  <div class="card">
+   <h3>Cuidados importantes</h3>
+   <p class="muted small">Aqueça por 5–8 minutos. Faça os movimentos com controle e descanse 60–90 segundos entre séries. Pare se sentir dor aguda ou articular. Mantenha 1–3 repetições “na reserva”, sem precisar chegar à falha.</p>
+   <div class="notice">Sem equipamentos, os movimentos de puxada para costas e bíceps ficam limitados. Não improvise barras em portas ou móveis instáveis.</div>
+  </div>
+ </section>
+ <section id="semana" hidden>
+  <div class="card"><h2>Rotina semanal</h2><p class="muted small">Uma retomada gradual, com dias de recuperação.</p><div id="weekList"></div></div>
+  <div class="card"><h3>Como marcar o dia</h3><p class="muted small">Conclua os exercícios no treino e toque em “Finalizar sessão”. A semana será atualizada automaticamente.</p></div>
+ </section>
+ <section id="progresso" hidden>
+  <div class="card"><div class="muted small">DIAS CONCLUÍDOS</div><div class="row"><h2 id="doneTotal" style="font-size:42px;color:var(--mint)">0/30</h2><span class="pill">30 dias</span></div><div class="progress"><span id="totalBar"></span></div><p class="muted small" id="progressText">Cada sessão conta. Consistência antes de intensidade.</p></div>
+  <div class="card"><h3>Histórico</h3><div class="daygrid" id="calendar"></div></div>
+  <button class="secondary full" id="resetBtn">Reiniciar meu progresso</button>
+ </section>
+ <section id="timer" hidden>
+  <div class="card"><h2>Cronômetro de descanso</h2><p class="muted small">Use entre as séries. Sugestão: 60 a 90 segundos.</p>
+   <div class="row" style="justify-content:center;margin-top:15px"><label class="small muted">Segundos <input id="seconds" type="number" min="5" max="600" value="90"></label></div>
+   <div class="timer" id="clock">01:30</div>
+   <div class="row"><button class="primary" id="startTimer">Iniciar</button><button class="secondary" id="pauseTimer">Pausar</button><button class="secondary" id="resetTimer">Zerar</button></div>
+  </div>
+ </section>
+ <footer>Seu progresso fica salvo neste aparelho. Treine com técnica e respeite sua recuperação.</footer>
+</main>
+<script>
+const plan=[
+ {day:"Segunda",name:"Peito, ombros e tríceps",tag:"Força A",desc:"Movimentos de empurrar, com execução controlada.",items:[["Flexão tradicional (ou com joelhos)", "3 séries × 8–12 repetições"],["Flexão fechada, amplitude confortável","2 × 6–10"],["Pike push-up (ombros)","2 × 6–10"],["Prancha com toque nos ombros","2 × 20 toques alternados"]]},
+ {day:"Terça",name:"Pernas e glúteos",tag:"Força B",desc:"Trabalhe com amplitude confortável e equilíbrio.",items:[["Agachamento livre","3 × 12–15"],["Afundo para trás alternado","2 × 8–10 por perna"],["Elevação de quadril","3 × 12–15"],["Elevação de panturrilha","3 × 15–20"]]},
+ {day:"Quarta",name:"Caminhada e mobilidade",tag:"Recuperação ativa",desc:"Dia leve para manter o hábito e recuperar.",items:[["Caminhada leve","20–30 minutos"],["Mobilidade de quadril e tornozelos","5 minutos"],["Mobilidade de ombros e coluna torácica","5 minutos"]]},
+ {day:"Quinta",name:"Costas, braços e abdômen",tag:"Complementar",desc:"Trabalho posterior e estabilidade. Sem puxadas externas, o estímulo de costas é limitado.",items:[["Superman (sem forçar a lombar)","2 × 10–12"],["Anjo reverso deitado","2 × 10–12"],["Rosca isométrica: uma mão resiste à outra","3 × 15–20 segundos por braço"],["Abdominal curto","2 × 12–15"],["Prancha","3 × 20–30 segundos"]]},
+ {day:"Sexta",name:"Descanso",tag:"Recuperação",desc:"Recuperação faz parte do desenvolvimento muscular.",items:[["Descanso ou caminhada muito leve","Opcional: 10–20 minutos"],["Alongamento suave","Opcional: 5 minutos"]]},
+ {day:"Sábado",name:"Corpo inteiro",tag:"Moderado",desc:"Circuito controlado. Faça 2 rodadas na primeira semana.",items:[["Agachamento","12 repetições"],["Flexão (variação adequada)","8–10 repetições"],["Afundo alternado","8 por perna"],["Superman","10 repetições"],["Mountain climber lento","20 alternâncias"],["Prancha","20–30 segundos"]]},
+ {day:"Domingo",name:"Recuperação",tag:"Descanso",desc:"Priorize sono, alimentação e hidratação.",items:[["Descanso","Sem treino obrigatório"],["Caminhada leve ou alongamento","Opcional"]]}
+];
+const key="meuTreino30_v1";
+let state=JSON.parse(localStorage.getItem(key)||'{"completed":{},"checks":{},"start":null}');
+const save=()=>localStorage.setItem(key,JSON.stringify(state));
+const todayIndex=()=>{if(!state.start)return 0;let d=Math.floor((new Date().setHours(0,0,0,0)-new Date(state.start).setHours(0,0,0,0))/86400000);return Math.max(0,Math.min(29,d));};
+const weekday=()=>new Date().getDay()===0?6:new Date().getDay()-1;
+function renderToday(){
+ let idx=weekday(),p=plan[idx],checks=state.checks[idx]||[];
+ document.getElementById("todayTitle").textContent=p.name;document.getElementById("todayTag").textContent=p.tag;document.getElementById("todayDesc").textContent=p.desc;
+ let html=`<div class="row"><h3>Exercícios</h3><span class="muted small">${p.items.length} atividades</span></div>`;
+ p.items.forEach((it,i)=>{html+=`<div class="exercise"><label class="check"><input type="checkbox" data-check="${i}" ${checks.includes(i)?"checked":""}><span style="flex:1"><b>${it[0]}</b><p>${it[1]}</p></span></label></div>`});
+ html+=`<button class="primary full" id="finishBtn">Finalizar sessão</button><p class="muted small" id="finishMsg">${state.completed[dayKey()]?"Sessão concluída. Muito bem!":"Marque os exercícios realizados antes de finalizar."}</p>`;
+ document.getElementById("exerciseCard").innerHTML=html;
+ document.querySelectorAll("[data-check]").forEach(el=>el.addEventListener("change",e=>{state.checks[idx]=state.checks[idx]||[];let n=+e.target.dataset.check;if(e.target.checked&&!state.checks[idx].includes(n))state.checks[idx].push(n);else state.checks[idx]=state.checks[idx].filter(x=>x!==n);save();updateCounts();}));
+ document.getElementById("finishBtn").onclick=()=>{state.start=state.start||new Date().toISOString();state.completed[dayKey()]=true;save();updateAll();document.getElementById("finishMsg").textContent="Sessão concluída. Parabéns pela consistência!"};
+ updateCounts();
+}
+function dayKey(){return new Date().toISOString().slice(0,10)}
+function updateCounts(){let idx=weekday(),p=plan[idx],n=(state.checks[idx]||[]).length;document.getElementById("todayCount").textContent=`${n} de ${p.items.length} exercícios`;let pct=Math.round(n/p.items.length*100);document.getElementById("todayPct").textContent=pct+"%";document.getElementById("todayBar").style.width=pct+"%";}
+function updateAll(){
+ let done=Object.keys(state.completed).length;document.getElementById("doneTotal").textContent=done+"/30";document.getElementById("totalBar").style.width=Math.min(100,done/30*100)+"%";document.getElementById("progressText").textContent=done?`Você já concluiu ${done} sessão(ões). Continue no seu ritmo.`:"Seu primeiro treino concluído será o começo do histórico.";
+ document.getElementById("calendar").innerHTML=Array.from({length:30},(_,i)=>{let d=new Date();d.setDate(d.getDate()-todayIndex()+i);let k=d.toISOString().slice(0,10);return `<div class="day ${state.completed[k]?"done":""}"><b>${i+1}</b>${state.completed[k]?"✓":"Dia"}</div>`}).join("");
+ document.getElementById("weekList").innerHTML=plan.map((p,i)=>`<div class="exercise"><div class="row"><b>${p.day}</b><span class="pill">${p.tag}</span></div><div>${p.name}</div><div class="muted small">${p.desc}</div></div>`).join("");
+}
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x===b));document.querySelectorAll("main section").forEach(s=>s.hidden=s.id!==b.dataset.tab);});
+document.getElementById("resetBtn").onclick=()=>{if(confirm("Apagar todo o progresso salvo neste aparelho?")){state={completed:{},checks:{},start:null};save();renderToday();updateAll();}};
+let remaining=90,interval=null;function clock(){let m=Math.floor(remaining/60),s=remaining%60;document.getElementById("clock").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")}
+document.getElementById("seconds").onchange=e=>{remaining=Math.max(5,Math.min(600,+e.target.value||90));clock()};
+document.getElementById("startTimer").onclick=()=>{if(interval)return;interval=setInterval(()=>{remaining=Math.max(0,remaining-1);clock();if(!remaining){clearInterval(interval);interval=null;try{navigator.vibrate?.([200,100,200])}catch(e){}}},1000)};
+document.getElementById("pauseTimer").onclick=()=>{clearInterval(interval);interval=null};
+document.getElementById("resetTimer").onclick=()=>{clearInterval(interval);interval=null;remaining=Math.max(5,Math.min(600,+document.getElementById("seconds").value||90));clock()};
+renderToday();updateAll();
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("./sw.js").catch(()=>{});
+</script>
+</body></html>

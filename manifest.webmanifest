@@ -1,0 +1,21 @@
+{
+  "name": "Meu Treino — 30 Dias",
+  "short_name": "Meu Treino",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0d1511",
+  "theme_color": "#101b16",
+  "description": "Plano de treino de 30 dias sem equipamentos.",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
